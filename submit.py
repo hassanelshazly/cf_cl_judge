@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
 import requests
 import getpass
+import cf_api
 import params
 import util
 import json
@@ -20,7 +21,7 @@ def submit(client):
     csrf_token = util.get_csrf_token(submit_page.content)
     source_file = open(params.source_file_name).read()
 
-    parts = {
+    submit_data = {
         "csrf_token"           : csrf_token,
         "source"               : source_file,
         "contestId"            : params.contest_id,
@@ -34,6 +35,9 @@ def submit(client):
         "action"               : "submitSolutionFormSubmitted",
     }
 
-    submit_result = client.post(url_submit, data=parts)
-    print(submit_result)
+    submit_result = client.post(url_submit, data=submit_data)
+    if submit_page.status_code != 200:
+        print ('fail to submit')
+        return False
+    cf_api.check_last_verdict()
     return True

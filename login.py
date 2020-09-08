@@ -21,8 +21,8 @@ def login(client):
 
     login_data = {
         "csrf_token"   : csrf_token,
-        "handleOrEmail": params.user,
-        "password"     : params.password,
+        "handleOrEmail": params.get_user(),
+        "password"     : params.get_passward(),
         "ftaa"         : params.ftaa,
         "bfaa"         : params.bfaa,
         "_tta"         : params.tta,
@@ -33,7 +33,7 @@ def login(client):
     login_result = client.post(cf_enter, data=login_data)
     # print (login_result.status_code)
     if login_result.status_code != 200:
-        print ("fail to connect", cf_enter)
+        print ("failed to connect", cf_enter)
         return False
     else:
         error = check_login_error(login_result.content)

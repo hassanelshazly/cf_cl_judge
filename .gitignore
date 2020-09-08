@@ -1,6 +1,5 @@
 # Files ignored by git
 
 __pycache__/
-cf.py
 simSource.cpp
 params.py
