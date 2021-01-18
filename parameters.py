@@ -20,7 +20,7 @@ class parameters:
         
         self.source_file_name = ""
 
-    def upload_params(self, fpath):
+    def load_params(self, fpath):
         data = open(fpath).read()
         params = json.loads(data)
         for key, value in params.items():
