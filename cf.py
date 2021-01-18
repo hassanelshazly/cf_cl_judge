@@ -1,13 +1,9 @@
-import requests
-import params
-import submit
-import login
-import util
+from cf_client import cf_client
 import re
 
 
 def main():
-    client = requests.session()
+    client = cf_client()
     while True:
         try:
             command = input(">>> ")
@@ -18,7 +14,9 @@ def main():
             elif re.match("quit", command):
                 break
             elif re.match("login",command ):
-                login.login(client)
+                client.login()
+            elif re.match("submit", command):
+                client.submit()
             else:
                 print("Undefind Command")
         except KeyboardInterrupt:
